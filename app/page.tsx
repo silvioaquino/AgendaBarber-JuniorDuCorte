@@ -6,8 +6,11 @@ import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
+import { db } from "./_lib/prisma"
 
-const Home = ()  => {
+const Home = async ()  => {
+  //chamar meu banco de dados
+  const barbershops = await db.barbershop.findMany({})
   return (
     <div>
       {/* Header */}
