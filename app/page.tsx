@@ -8,9 +8,13 @@ import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 
+
+
 const Home = async ()  => {
-  //chama o banco de dadods
+  //chamar meu banco de dados
   const barbershops = await db.barbershop.findMany({})
+  
+
   return (
     <div>
       {/* Header */}
@@ -67,9 +71,18 @@ const Home = async ()  => {
             </div>
           </CardContent>
         </Card>
-
-
       </div>
+
+      <footer>
+        <Card>
+          <CardContent className="px-5 py-6">
+            <p className="text-sm text-gray-400">
+              @ 2024 Copyringht <span className="font-bold">Junior Du Corte</span>
+            </p>
+          </CardContent>
+        </Card>
+      </footer>
+
     </div>
   )
 }
