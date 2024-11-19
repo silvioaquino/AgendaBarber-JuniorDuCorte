@@ -1,23 +1,44 @@
 import { SearchIcon } from "lucide-react"
-import Header from "./_components/header"
-import { Button } from "./_components/ui/button"
-import { Input } from "./_components/ui/input"
+import Header from "../_components/header"
+import { Button } from "../_components/ui/button"
+import { Input } from "../_components/ui/input"
 import Image from "next/image"
-import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
-import { db } from "./_lib/prisma"
-//import BarbershopItem from "./_components/barbershopItem"
-import ServiceItem from "./_components/service-item"
-import BarbershopItem from "./_components/barbershopItem"
+import { Card, CardContent } from "../_components/ui/card"
+import { Badge } from "../_components/ui/badge"
+import { Avatar, AvatarImage } from "../_components/ui/avatar"
+import { db } from "../_lib/prisma"
+import ServiceItem from "../_components/service-item"
 
 
 
-const Home = async ()  => {
+interface BarbershopDetailsPageProps {
+  params: {
+      id?: string
+  }
+}
+
+const Home = async ({params}: BarbershopDetailsPageProps)  => {
+
+  if (!params.id){
+    // TODO: redirecionar para home page
+    return null
+  }
+
   //chamar meu banco de dados
-  const barbershops = await db.barbershop.findMany({})
-  
+  const barbershops = await db.barbershop.findUnique({
+    where: { 
+      id: params.id, 
+    },
+    include: {
+      services: true,
+    },
+  })
 
+  if (!barbershops) {
+    // TODO: redirecionar para home page
+    return null
+  }
+  
   return (
     <div>
       {/* Header */}
@@ -75,14 +96,13 @@ const Home = async ()  => {
           </CardContent>
         </Card>
       </div>
-
+      
       <h2 className="mb-5 mt-6 text-xs font-bold uppercase text-gray-400">
         Recomendados
       </h2>
-      {barbershops.map((barbershop) => (
-        <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-      ))}
-
+      {barbershops.services.map(service => (
+          <ServiceItem key={service.id} service={service} />
+      ))} 
     </div>
   )
 }

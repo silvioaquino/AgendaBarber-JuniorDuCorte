@@ -1,7 +1,7 @@
-import { Service } from "@prisma/client"
+import { BarbershopService } from "@prisma/client"
 
 interface ServiceItemProps {
-    service: Service;
+    service: BarbershopService;
 }
 
 const ServiceItem = ( {service}: ServiceItemProps) => {
