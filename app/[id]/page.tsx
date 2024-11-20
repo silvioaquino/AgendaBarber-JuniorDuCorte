@@ -69,7 +69,7 @@ const Home = async ({params}: BarbershopDetailsPageProps)  => {
         </div>
 
         {/* Agendamentos */}
-        <h2 className=" mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Agendamento
         </h2>
 
@@ -97,12 +97,15 @@ const Home = async ({params}: BarbershopDetailsPageProps)  => {
         </Card>
       </div>
       
-      <h2 className="mb-5 mt-6 text-xs font-bold uppercase text-gray-400">
-        Recomendados
+      <h2 className="p-5 text-xs font-bold uppercase text-gray-400">
+        Serviços
       </h2>
-      {barbershops.services.map(service => (
-          <ServiceItem key={service.id} service={service} />
-      ))} 
+
+      <div className="px-5 flex flex-col gap-4  py-1">
+        {barbershops.services.map(service => (
+            <ServiceItem key={service.id} service={service} />
+        ))}
+      </div>
     </div>
   )
 }
